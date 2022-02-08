@@ -1,0 +1,12 @@
+﻿html{
+    height:100%;
+}
+body {
+    height: 100%;
+}
+.login-group{
+    width : 400px !important;
+}
+.container{
+    height:100vh;
+}

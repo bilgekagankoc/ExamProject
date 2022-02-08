@@ -1,0 +1,213 @@
+﻿
+@model ExamProject.Models.SoruTextModels
+@{
+    var SelectListItems = new List<SelectListItem>();
+    var listItems = new List<SelectListItem>
+{
+          new SelectListItem { Text = "A", Value="A" ,Selected=true},
+          new SelectListItem { Text = "B", Value="B" ,Selected=false},
+          new SelectListItem { Text = "C", Value="C" ,Selected=false},
+          new SelectListItem { Text = "D", Value="D" ,Selected=false}
+};
+
+
+    var tempval = @TempData["girisBasarilimi"];
+    tempval = tempval == null ? false : true;
+
+}
+
+@foreach (var item in Model.soruTextModels)
+    {
+
+        var selectListItem = new SelectListItem()
+        {
+            Text = item.SoruBasligi,
+            Value = item.id.ToString(),
+
+    };
+    SelectListItems.Add(selectListItem);
+}
+
+
+
+<div class="container-fluid">
+    @if ((bool)tempval)
+    {
+        <div class="alert alert-primary text-center success-login " role="alert">
+            Giriş Başarılı
+        </div>
+    }
+    @using (Html.BeginForm("SaveExam", "Home", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="row d-flex justify-content-center pt-3 ">
+                    <div class="col-12 border p-2 text-center">
+                        <span>Yazi Başlıkları</span>
+
+
+                        @*<select class="form-select" aria-label="Default select example" id="mySelect">*@
+                        @*@foreach (var item1 in Model.soruTextModels)
+                            {*@
+                        @Html.DropDownListFor(model => model.SoruCevapModel.SoruTextId, SelectListItems)
+                        @*<option value="@item1.id" onchange="changeText()" class="soru-basligi">@item1.SoruBasligi</option>*@
+                        @*}*@
+                        @*</select>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @foreach (var item in Model.soruTextModels)
+        {
+            <div class="@item.id sorular">
+                <div class="row">
+                    <div class="col-12 border">
+                        <p class="soru-text">@item.SoruMetni</p>
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label  class="form-label">Soru 1</label>
+                            @*<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>*@
+                            @Html.HiddenFor(model=> model.SoruCevapModel.SoruModels[0].SoruNo, new { value="1" })
+                            @*@Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[0].SoruNo,   new { @value = "3" })*@
+                            @*@Html.LabelFor(model => model.SoruCevapModel.SoruModels[0].SoruNo, "1", htmlAttributes: new { value = 1 })*@ 
+                            @Html.TextAreaFor(model => model.SoruCevapModel.SoruModels[0].SoruText, htmlAttributes: new { @class = "form-control", placeholder = "Sorunuzu Girin", type = "textarea", rows = 3 })
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="input-group">
+                        <div class="col-6 ">
+                            <span>A</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[0].A, htmlAttributes: new { @class = "form-control", type = "text" })
+                            <span>B</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[0].B, htmlAttributes: new { @class = "form-control", type = "text" })
+                        </div>
+                        <div class="col-6">
+                            <span>C</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[0].C, htmlAttributes: new { @class = "form-control", type = "text" })
+                            <span>D</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[0].D, htmlAttributes: new { @class = "form-control", type = "text" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center pt-3 ">
+                    <div class="col-sm-4 dogru-cevap border p-2 text-center">
+                        <span>DOĞRU CEVAPI SEÇ</span>
+                        @Html.DropDownListFor(model => model.SoruCevapModel.SoruModels[0].Dogru, listItems)
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.SoruCevapModel.SoruModels[1].SoruNo, "2")
+                            @Html.TextAreaFor(model => model.SoruCevapModel.SoruModels[1].SoruText, htmlAttributes: new { @class = "form-control", placeholder = "Sorunuzu Girin", type = "textarea", rows = 3 })
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="input-group">
+                        <div class="col-6 ">
+                            <span>A</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[1].A, htmlAttributes: new { @class = "form-control", type = "text" })
+                            <span>B</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[1].B, htmlAttributes: new { @class = "form-control", type = "text" })
+                        </div>
+                        <div class="col-6">
+                            <span>C</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[1].C, htmlAttributes: new { @class = "form-control", type = "text" })
+                            <span>D</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[1].D, htmlAttributes: new { @class = "form-control", type = "text" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center pt-3 ">
+                    <div class="col-sm-4 dogru-cevap border p-2 text-center">
+                        <span>DOĞRU CEVAPI SEÇ</span>
+                        @Html.DropDownListFor(model => model.SoruCevapModel.SoruModels[1].Dogru, listItems)
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.SoruCevapModel.SoruModels[2].SoruNo, "3")
+                            @Html.TextAreaFor(model => model.SoruCevapModel.SoruModels[2].SoruText, htmlAttributes: new { @class = "form-control", placeholder = "Sorunuzu Girin", type = "textarea", rows = 3 })
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="input-group">
+                        <div class="col-6 ">
+                            <span>A</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[2].A, htmlAttributes: new { @class = "form-control", type = "text" })
+                            <span>B</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[2].B, htmlAttributes: new { @class = "form-control", type = "text" })
+                        </div>
+                        <div class="col-6">
+                            <span>C</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[2].C, htmlAttributes: new { @class = "form-control", type = "text" })
+                            <span>D</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[2].D, htmlAttributes: new { @class = "form-control", type = "text" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center pt-3 ">
+                    <div class="col-sm-4 dogru-cevap border p-2 text-center">
+                        <span>DOĞRU CEVAPI SEÇ</span>
+                        @Html.DropDownListFor(model => model.SoruCevapModel.SoruModels[2].Dogru, listItems)
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.SoruCevapModel.SoruModels[3].SoruNo, "4")
+                            @Html.TextAreaFor(model => model.SoruCevapModel.SoruModels[3].SoruText, htmlAttributes: new { @class = "form-control", placeholder = "Sorunuzu Girin", type = "textarea", rows = 3 })
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="input-group">
+                        <div class="col-6 ">
+                            <span>A</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[3].A, htmlAttributes: new { @class = "form-control", type = "text" })
+                            <span>B</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[3].B, htmlAttributes: new { @class = "form-control", type = "text" })
+                        </div>
+                        <div class="col-6">
+                            <span>C</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[3].C, htmlAttributes: new { @class = "form-control", type = "text" })
+                            <span>D</span>
+                            @Html.TextBoxFor(model => model.SoruCevapModel.SoruModels[3].D, htmlAttributes: new { @class = "form-control", type = "text" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center pt-3 ">
+                    <div class="col-sm-4 dogru-cevap border p-2 text-center">
+                        <span>DOĞRU CEVAPI SEÇ</span>
+                        @Html.DropDownListFor(model => model.SoruCevapModel.SoruModels[3].Dogru, listItems)
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">SINAV OLUŞTUR</button>
+            </div>
+
+
+        }
+
+    }
+
+</div>
+
+
+
+
+
+
+
+
+@section scripts{
+    <script src="~/js/CreateExam.js"></script>
+}
